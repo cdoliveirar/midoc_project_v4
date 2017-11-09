@@ -372,7 +372,7 @@ class PatientUpdateToken(APIView):
 # check
 class PatientByTokenList(APIView):
 
-    renderer_classes = (JSONRenderer,)
+    #renderer_classes = (JSONRenderer,)
 
     def get(request, *args, **kwargs):
         token_sinch = kwargs['token_sinch']
@@ -386,11 +386,9 @@ class PatientByTokenList(APIView):
 
             patient_dict =[ {"id": patient.pk, "name": patient.name, "age": calculate_age(patient.year_of_birth), "email": patient.email,
                      "password": patient.password, "dni": patient.dni, "picture_url": patient.picture_url,
-                     "enterprise_enabled": patient.is_enterprise_enabled, "blood_type": patient.blood_type,
-                     "allergic_reaction": patient.allergic_reaction, "token_sinch":patient.token_sinch,
-                     "nokia_weight": patient.nokia_weight, "nokia_body_temperature": patient.nokia_body_temperature,
-                     "nokia_blood_pressure": patient.nokia_blood_pressure, "size": patient.size,
-                     "is_enterprise_enabled": patient.is_enterprise_enabled
+                     "blood_type": patient.blood_type, "allergic_reaction": patient.allergic_reaction,
+                     "token_sinch":patient.token_sinch, "size": patient.size,
+                     "is_enterprise_enabled": patient.is_enterprise_enabled, "enterprise_name":patient.location.enterprise.business_name
                      } for patient in patient_list
             ]
 
