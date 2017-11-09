@@ -23,7 +23,8 @@ from .views import (DoctorLogin,
                     CallDoctorView,
                     MedicalHistorySpecialistList,
                     CallActivate,
-                    ArtifactMeasurementTool
+                    ArtifactMeasurementTool,
+                    PatientRegisterView
                     )
 
 urlpatterns = [
@@ -50,6 +51,8 @@ urlpatterns = [
 
 
     url(r'^patient/$', PatientView.as_view(), name='patient'),
+    url(r'^patientregister/$', PatientRegisterView.as_view(), name='patient_register'),
+
     url(r'^patient_update_token/(?P<pk>[0-9]+)$', PatientUpdateToken.as_view(), name='patient'),
     url(r'^patient_token/(?P<token_sinch>[\w\-]+)/$', PatientByTokenList.as_view(), name='patient'),
 
