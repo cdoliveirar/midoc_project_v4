@@ -387,8 +387,9 @@ class PatientByTokenList(APIView):
             patient_dict =[ {"id": patient.pk, "name": patient.name, "age": calculate_age(patient.year_of_birth), "email": patient.email,
                      "password": patient.password, "dni": patient.dni, "picture_url": patient.picture_url,
                      "blood_type": patient.blood_type, "allergic_reaction": patient.allergic_reaction,
-                     "token_sinch":patient.token_sinch, "size": patient.size,
-                     "is_enterprise_enabled": patient.is_enterprise_enabled, "enterprise_name":patient.location.enterprise.business_name
+                     "token_sinch":patient.token_sinch, "size": patient.size, "gender": patient.gender,
+                     "contact_phone": patient.contact_phone, "is_enterprise_enabled": patient.is_enterprise_enabled,
+                     "enterprise_name": patient.location.enterprise.business_name
                      } for patient in patient_list
             ]
 
