@@ -49,11 +49,11 @@ urlpatterns = [
 
     url(r'^medical_history_detail/(?P<medical_history_id>\d+)/$', MedicalHistoryDetail.as_view(), name='medical_history_detail'),
 
+    # patient
+    url(r'^patient_verify/$', PatientView.as_view(), name='patient_verify'),
+    url(r'^patient_register/$', PatientRegisterView.as_view(), name='patient_register'),
 
-    url(r'^patient/$', PatientView.as_view(), name='patient'),
-    url(r'^patientregister/$', PatientRegisterView.as_view(), name='patient_register'),
-
-    url(r'^patient_update_token/(?P<pk>[0-9]+)$', PatientUpdateToken.as_view(), name='patient'),
+    url(r'^patient_update_token/(?P<pk>[0-9]+)/$', PatientUpdateToken.as_view(), name='patient'),
     url(r'^patient_token/(?P<token_sinch>[\w\-]+)/$', PatientByTokenList.as_view(), name='patient'),
 
 
