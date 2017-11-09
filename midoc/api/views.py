@@ -319,17 +319,15 @@ class PatientView(APIView):
         vd = serializer.validated_data
         print(vd.get("dni"))
         try:
-            if Patient.objects.filter(dni__exact=vd.get("dni")).exists():
+            if Patient.objects.filter(dni__iexact=vd.get("dni")).exists():
                 # recovery the patient
-                patient = Patient.objects.get(dni__exact=vd.get("dni"))
+                patient = Patient.objects.get(dni__iexact=vd.get("dni"))
 
                 p = {"id": patient.pk, "name": patient.name, "email": patient.email,
                      "password": patient.password, "dni": patient.dni, "picture_url": patient.picture_url,
                      "enterprise_enabled": patient.is_enterprise_enabled, "blood_type": patient.blood_type,
                      "allergic_reaction": patient.allergic_reaction, "token_sinch": patient.token_sinch,
-                     "nokia_weight": patient.nokia_weight, "nokia_body_temperature": patient.nokia_body_temperature,
-                     "nokia_blood_pressure": patient.nokia_blood_pressure, "size": patient.size,
-
+                     "size": patient.size
                 }
 
                 return Response(p)

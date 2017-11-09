@@ -82,7 +82,8 @@ urlpatterns = [
     # only one character , 1 or 0
     url(r'^call_activate/doctor_id/(?P<doctor_id>\d+)/status/(?P<activate>[\w.]+)/$', CallActivate.as_view(), name='call_activate'),
 
-
+    # midoc admin
+    #url(r'^)
 
 
 
