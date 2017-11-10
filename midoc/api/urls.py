@@ -24,7 +24,9 @@ from .views import (DoctorLogin,
                     MedicalHistorySpecialistList,
                     CallActivate,
                     ArtifactMeasurementTool,
-                    PatientRegisterView
+                    PatientRegisterView,
+                    #MedicalHistoryRegister,
+                    MedicalHistoryListByEmergDoctor,
                     )
 
 urlpatterns = [
@@ -38,9 +40,14 @@ urlpatterns = [
     url(r'^specialist_doctor/headquarters/(?P<location_id>\d+)/emergency_attention/(?P<emergency_attention_id>\d+)/$', SpecialistDoctor.as_view(), name='specialist_doctor'),
     url(r'^emergency_doctor/(?P<location_id>\d+)/$', EmergencyDoctor.as_view(), name='emergency_doctor'),
 
-    # medical history by emergencista
+    # medical history by emergencista within doctor_id
     url(r'^emergency_history/doctor/(?P<doctor_id>\d+)/location/(?P<location_id>\d+)/emergency_doctor/(?P<emergency_doctor_id>\d+)/$',
         MedicalHistoryList.as_view(), name='emergency_history'),
+
+
+    # medical history ONLY by emergencista
+    url(r'^emergency_history/emergency_doctor/(?P<emergency_doctor_id>\d+)/location/(?P<location_id>\d+)/$',
+        MedicalHistoryListByEmergDoctor.as_view(), name='emergency_doctor_history'),
 
     # medical history by specialist
     url(r'^emergency_history/doctor/(?P<doctor_id>\d+)/location/(?P<location_id>\d+)/$',
@@ -85,8 +92,9 @@ urlpatterns = [
     # only one character , 1 or 0
     url(r'^call_activate/doctor_id/(?P<doctor_id>\d+)/status/(?P<activate>[\w.]+)/$', CallActivate.as_view(), name='call_activate'),
 
-    # midoc admin
-    #url(r'^)
+    #medical history register
+    #url(r'^medical_history_register/$', MedicalHistoryRegister.as_view(), name='medical_history_register'),
+
 
 
 

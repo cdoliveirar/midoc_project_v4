@@ -15,6 +15,7 @@ from .serializers import (DoctorSerializer,
                         PatientSerializer,
                         PatientVerifySerializer,
                         ArtifactMeasurementSerializer,
+                        #PatientHistorySerializer
                           )
 from .models import (Doctor,
                     Location,
@@ -195,6 +196,28 @@ class MedicalHistoryList(APIView):
                                  "age": calculate_age(medical_history.patient.year_of_birth), "fecha_ingreso": medical_history.created_date,
                                  "name": medical_history.patient.name} for medical_history in medical_history_list]
         dict = {"emergency_patient": medical_history_dict}
+        return Response(dict)
+
+
+# check
+class MedicalHistoryListByEmergDoctor(APIView):
+    serializer_class = MedicalHistorySerializer
+
+    def get(self, request, *args, **kwargs):
+        emergency_doctor_id = self.kwargs['emergency_doctor_id']
+        location_id = self.kwargs['location_id']
+
+        print(location_id)
+        print(emergency_doctor_id)
+
+        medical_history_list = MedicalHistory.objects.filter(location_id=self.kwargs['location_id']).filter(
+        emergencista=emergency_doctor_id).order_by('created_date')
+        print(medical_history_list)
+
+        medical_history_dict = [{ "patient_name":mh.patient.name, "emergency_doctor":mh.emergencista.doctor_name,
+                                "degree": mh.emergencista.degree, "fecha_ingreso": mh.created_date
+                                 } for mh in medical_history_list]
+        dict = {"emergency_history": medical_history_dict}
         return Response(dict)
 
 
@@ -413,7 +436,7 @@ class PatientUpdateToken(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# check
+# check - TOKEN
 class PatientByTokenList(APIView):
 
     #renderer_classes = (JSONRenderer,)
@@ -849,7 +872,7 @@ class CallActivate(APIView):
                 doctor.call_activate = activate
                 doctor.save()
                 response_msg = {
-                    'details': "The Doctor Status was updated",
+                    'medical_history_registerdetails': "The Doctor Status was updated",
                     #"status": status.HTTP_200_OK}
                     "status": activate}
                 return Response(response_msg)
@@ -859,3 +882,14 @@ class CallActivate(APIView):
                 # "status": status.HTTP_200_OK}
                 "status": status.HTTP_403_FORBIDDEN}
             return Response(response_msg)
+
+
+# dev
+# class MedicalHistoryRegister(APIView):
+#     serializer_class = PatientHistorySerializer
+#
+#     def get(self, request, format=None):
+#         serializer = self.serializer_class(Patient.objects.all(), many=True)
+#         return Response(serializer.data)
+
+

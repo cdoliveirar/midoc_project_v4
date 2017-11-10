@@ -130,7 +130,7 @@ class LocationEmergencyAttention(models.Model):
 
 #check
 class MedicalHistory(models.Model):
-    patient = models.ForeignKey('Patient', models.DO_NOTHING)
+    patient = models.ForeignKey('Patient', models.DO_NOTHING, related_name="medical_histories", )
     doctor = models.ForeignKey(Doctor, models.DO_NOTHING)
     emergencista = models.ForeignKey(Doctor, models.DO_NOTHING, related_name='emergencista')
     location_id = models.IntegerField(unique=True, blank=True, null=True)
@@ -149,7 +149,7 @@ class MedicalHistory(models.Model):
     last_modified_by = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return "{0}".format(self.doctor_comment, self.doctor, self.emergencista)
+        return "{0} - {1} - {2}".format(self.created_date, self.diagnostic, self.doctor)
 
     #def save(self, *args, **kwargs):
     #    super(MedicalHistory, self).save(*args, **kwargs)

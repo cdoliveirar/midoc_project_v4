@@ -52,3 +52,12 @@ class ArtifactMeasurementSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+# class PatientHistorySerializer(serializers.ModelSerializer):
+#     medical_histories = serializers.StringRelatedField(many=True)
+#     enterprise = serializers.StringRelatedField(many=True)
+#
+#     class Meta:
+#         model = Patient
+#         fields = ('contact_phone', 'dni', 'medical_histories')
+
+
