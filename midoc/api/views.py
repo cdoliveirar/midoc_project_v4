@@ -215,7 +215,8 @@ class MedicalHistoryListByEmergDoctor(APIView):
         print(medical_history_list)
 
         medical_history_dict = [{ "patient_name":mh.patient.name, "emergency_doctor":mh.emergencista.doctor_name,
-                                "degree": mh.emergencista.degree, "fecha_ingreso": mh.created_date
+                                "degree": mh.emergencista.degree, "fecha_ingreso": mh.created_date,
+                                "picture_url":mh.patient.picture_url
                                  } for mh in medical_history_list]
         dict = {"emergency_history": medical_history_dict}
         return Response(dict)
