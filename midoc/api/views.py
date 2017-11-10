@@ -214,9 +214,9 @@ class MedicalHistoryListByEmergDoctor(APIView):
         emergencista=emergency_doctor_id).order_by('created_date')
         print(medical_history_list)
 
-        medical_history_dict = [{ "patient_name":mh.patient.name, "emergency_doctor":mh.emergencista.doctor_name,
-                                "degree": mh.emergencista.degree, "fecha_ingreso": mh.created_date,
-                                "picture_url":mh.patient.picture_url
+        medical_history_dict = [{"patient_name": mh.patient.name, "doctor_name": mh.emergencista.doctor_name,
+                                "attention_name": mh.doctor.emergency_attention.attention_name, "created_date": mh.created_date,
+                                "picture_url":mh.patient.picture_url, "id":mh.pk,
                                  } for mh in medical_history_list]
         dict = {"emergency_history": medical_history_dict}
         return Response(dict)
