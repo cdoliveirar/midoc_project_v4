@@ -261,7 +261,7 @@ class MedicalHistoryDetail(APIView):
         patient = {"name": mh.patient.name, "edad": calculate_age(mh.patient.year_of_birth), "tipo_de_sangre":mh.patient.blood_type,
                    "alergias":mh.patient.allergic_reaction, "contact_phone": mh.patient.contact_phone, "created_date":mh.patient.created_date,
                    "gender": mh.patient.gender, "diagnostic": mh.diagnostic, "symptom": mh.symptom, "blood_type": mh.patient.blood_type,
-                   "size": mh.patient.size, "email": mh.patient.email, "picture_url":mh.patient.picture_url}
+                   "size": mh.patient.size, "email": mh.patient.email, "picture_url":mh.patient.picture_url, "dni": mh.patient.dni}
 
         emergencista = {"nombre_emergencista": mh.emergencista.doctor_name, "emergencista_sintoma":mh.symptom,
                         "doctor_foto":mh.emergencista.picture_url, "cmd": mh.emergencista.cmd_peru}
@@ -372,7 +372,7 @@ class PatientView(APIView):
             return HttpResponse(json.dumps(response_msg, cls=DjangoJSONEncoder), content_type='application/json')
 
 
-# dev
+# check
 class PatientRegisterView(APIView):
     serializer_class = PatientSerializer
 
