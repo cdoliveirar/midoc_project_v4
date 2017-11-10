@@ -272,7 +272,10 @@ class MedicalHistoryDetail(APIView):
 
         mhm2 = [{"picture_patient": mhm.picture_url} for mhm in mhm_list]
 
-        medical_history_detail = [{"patient": patient, "emergencista":emergencista, "doctor":doctor, "picture_detail": mhm2}]
+        # headers for medical history detail
+        headers = {"picture_detail" : "Fotos", "emergencista" : "Médico de Área", "patient" : "Paciente", "doctor" : "Especialista"}
+
+        medical_history_detail = [{"patient": patient, "emergencista":emergencista, "doctor":doctor, "picture_detail": mhm2, "headers": headers}]
         print(medical_history_detail)
 
         dict = {"medical_history_detail":medical_history_detail}
