@@ -60,4 +60,30 @@ class ArtifactMeasurementSerializer(serializers.ModelSerializer):
 #         model = Patient
 #         fields = ('contact_phone', 'dni', 'medical_histories')
 
+# medical history updating
+class MedicalHistoryUpdatingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MedicalHistory
+        fields = ('medical_history_text', 'symptom', 'doctor_comment', 'diagnostic', 'weight', 'body_temperature',
+                  'blood_pressure', 'heart_rate')
+
+
+class PatientUpdatingSerializer(serializers.ModelSerializer):
+    patients_medical_histories = MedicalHistoryUpdatingSerializer(many=True)
+
+    class Meta:
+        model = Patient
+        fields = ('name','email','dni','blood_type','allergic_reaction','size','contact_phone','gender',
+                  'patients_medical_histories')
+
+    def create(self, validated_data):
+        patients_medical_histories = validated_data.pop('patients_medical_histories')
+        patient = Patient.objects.create(**validated_data)
+        for medical_history in patients_medical_histories:
+            MedicalHistory.objects.create(patient=patient, **medical_history)
+        return patient
+
+
+
 

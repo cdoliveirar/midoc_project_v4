@@ -16,6 +16,7 @@ from .serializers import (DoctorSerializer,
                         PatientVerifySerializer,
                         ArtifactMeasurementSerializer,
                         #PatientHistorySerializer
+                        PatientUpdatingSerializer,
                           )
 from .models import (Doctor,
                     Location,
@@ -283,6 +284,27 @@ class MedicalHistoryDetail(APIView):
         dict = {"medical_history_detail":medical_history_detail}
 
         return Response(dict)
+
+
+# dev child json update/create
+class MedicalHistoryUpdating(APIView):
+
+    serializer_class = PatientUpdatingSerializer
+
+    def post(self, request, format=None):
+        p_ser = self.serializer_class(data=request.data)
+        if p_ser.is_valid():
+            p_ser.save()
+            return Response(p_ser.data)
+
+        print(">>> create updating  failure")
+        responseMsg = [{'create': 'failure'}]
+        return HttpResponse(json.dumps(responseMsg, cls=DjangoJSONEncoder), content_type='application/json')
+
+        #return Response()
+
+
+
 
 
 """

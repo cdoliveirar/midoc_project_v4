@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -130,9 +132,9 @@ class LocationEmergencyAttention(models.Model):
 
 #check
 class MedicalHistory(models.Model):
-    patient = models.ForeignKey('Patient', models.DO_NOTHING, related_name="medical_histories", )
-    doctor = models.ForeignKey(Doctor, models.DO_NOTHING)
-    emergencista = models.ForeignKey(Doctor, models.DO_NOTHING, related_name='emergencista')
+    patient = models.ForeignKey('Patient', models.DO_NOTHING, related_name="patients_medical_histories" )
+    doctor = models.ForeignKey(Doctor, models.DO_NOTHING, related_name="doctors")
+    emergencista = models.ForeignKey(Doctor, models.DO_NOTHING, related_name='emergencistas')
     location_id = models.IntegerField(unique=True, blank=True, null=True)
     medical_history_text = models.TextField(blank=True, null=True)
     symptom = models.TextField(blank=True, null=True)

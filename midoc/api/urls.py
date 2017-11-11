@@ -27,6 +27,7 @@ from .views import (DoctorLogin,
                     PatientRegisterView,
                     #MedicalHistoryRegister,
                     MedicalHistoryListByEmergDoctor,
+                    MedicalHistoryUpdating,
                     )
 
 urlpatterns = [
@@ -55,6 +56,10 @@ urlpatterns = [
 
 
     url(r'^medical_history_detail/(?P<medical_history_id>\d+)/$', MedicalHistoryDetail.as_view(), name='medical_history_detail'),
+
+    # updating medical history detail
+    url(r'^medical_history_updating/$', MedicalHistoryUpdating.as_view(), name='medical_history_detail'),
+
 
     # patient
     url(r'^patient_verify/$', PatientView.as_view(), name='patient_verify'),
